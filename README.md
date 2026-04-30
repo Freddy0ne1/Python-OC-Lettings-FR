@@ -35,7 +35,7 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 #### Exécuter le site
 
 - `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
+- `source env/bin/activate`
 - `pip install --requirement requirements.txt`
 - `python manage.py runserver`
 - Aller sur `http://localhost:8000` dans un navigateur.
@@ -44,13 +44,13 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 #### Linting
 
 - `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
+- `source env/bin/activate`
 - `flake8`
 
 #### Tests unitaires
 
 - `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
+- `source env/bin/activate`
 - `pytest`
 
 #### Base de données
