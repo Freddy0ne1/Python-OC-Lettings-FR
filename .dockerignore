@@ -1,0 +1,25 @@
+# Environnement virtuel
+env/
+venv/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Tests
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Git
+.git/
+.gitignore
+
+# DB locale (ne pas exclure : le projet utilise SQLite)
+# *.sqlite3
+
+# IDE
+.vscode/
+.idea/
