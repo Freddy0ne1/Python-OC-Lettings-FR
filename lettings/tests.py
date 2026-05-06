@@ -37,6 +37,7 @@ def sample_letting(address):
 @pytest.mark.django_db
 class TestAddressModel:
     """Tests unitaires du modele Address."""
+
     def test_address_str(self, address):
         """Test que __str__ retourne 'number street'."""
         assert str(address) == '123 Main Street'
@@ -53,11 +54,12 @@ class TestAddressModel:
     def test_address_verbose_name_plural(self):
         """Test que le pluriel est 'Addresses' et non 'Addresss'."""
         assert Address._meta.verbose_name_plural == 'Addresses'
-    
+
 
 @pytest.mark.django_db
 class TestLettingModel:
     """Tests unitaires du modele Letting."""
+
     def test_letting_str(self, sample_letting):
         """Test que __str__ retourne le titre."""
         assert str(sample_letting) == 'Beautiful Apartment'
@@ -73,7 +75,7 @@ class TestLettingModel:
         address.delete()
         assert not Letting.objects.filter(id=letting_id).exists()
 
-        
+
 # ============================================================
 # TESTS DES VUES
 # ============================================================
@@ -81,6 +83,7 @@ class TestLettingModel:
 @pytest.mark.django_db
 class TestLettingsViews:
     """Tests d'integration des vues lettings."""
+
     def test_index_returns_200(self, client, sample_letting):
         """Test que la liste des lettings retourne HTTP 200."""
         url = reverse('lettings:index')
@@ -92,13 +95,13 @@ class TestLettingsViews:
         url = reverse('lettings:index')
         response = client.get(url)
         assert 'lettings/index.html' in [t.name for t in response.templates]
-        
+
     def test_index_contains_letting(self, client, sample_letting):
         """Test que la liste contient bien la location creee."""
         url = reverse('lettings:index')
         response = client.get(url)
         assert sample_letting in response.context['lettings_list']
-        
+
     def test_letting_detail_returns_200(self, client, sample_letting):
         """Test que la page detail retourne HTTP 200."""
         url = reverse('lettings:letting', kwargs={'letting_id': sample_letting.id})
@@ -107,13 +110,13 @@ class TestLettingsViews:
 
     def test_letting_detail_uses_correct_template(self, client, sample_letting):
         """Test que la vue detail utilise le bon template."""
-        url = reverse('lettings:letting', kwargs={'letting_id':sample_letting.id})
+        url = reverse('lettings:letting', kwargs={'letting_id': sample_letting.id})
         response = client.get(url)
         assert 'lettings/letting.html' in [t.name for t in response.templates]
-        
+
     def test_letting_detail_context(self, client, sample_letting, address):
         """Test que le contexte contient le titre et l'adresse."""
-        url = reverse('lettings:letting', kwargs={'letting_id':sample_letting.id})
+        url = reverse('lettings:letting', kwargs={'letting_id': sample_letting.id})
         response = client.get(url)
         assert response.context['title'] == 'Beautiful Apartment'
         assert response.context['address'] == address
@@ -127,23 +130,26 @@ class TestLettingsViews:
 # ============================================================
 # TESTS DES URLS
 # ============================================================
+
+
 class TestLettingsURLs:
     """Tests des URLs lettings."""
+
     def test_lettings_index_url(self):
         """Test que /lettings/ pointe vers la bonne vue."""
         url = reverse('lettings:index')
         assert url == '/lettings/'
-        
+
     def test_lettings_index_resolves(self):
         """Test que /lettings/ se resout vers la vue index."""
         resolver = resolve('/lettings/')
         assert resolver.view_name == 'lettings:index'
-    
+
     def test_letting_detail_url(self):
         """Test que /lettings/1/ pointe vers la bonne vue."""
         url = reverse('lettings:letting', kwargs={'letting_id': 1})
         assert url == '/lettings/1/'
-        
+
     def test_letting_detail_resolves(self):
         """Test que /lettings/1/ se resout vers la vue letting."""
         resolver = resolve('/lettings/1/')

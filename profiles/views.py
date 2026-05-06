@@ -6,6 +6,8 @@ from .models import Profile
 logger = logging.getLogger(__name__)
 
 # Vue pour afficher la liste des profils
+
+
 def index(request):
     """
     Vue listant tous les profils utilisateurs.
@@ -25,6 +27,8 @@ def index(request):
     return render(request, 'profiles/index.html', context)
 
 # Vue pour afficher un profil spécifique
+
+
 def profile(request, username):
     """
     Vue affichant le détail d'un profil utilisateur.
@@ -33,7 +37,7 @@ def profile(request, username):
         username (str): Nom d'utilisateur.
 
     Context:
-        profile: Objet Profile correspondant au nom d'utilisateur fourni       
+        profile: Objet Profile correspondant au nom d'utilisateur fourni
     Template:
         profiles/profile.html
     """

@@ -15,4 +15,4 @@ class Profile(models.Model):
 
     def __str__(self):
         """ Retourne le nom d'utilisateur sous forme de chaîne de caractères """
-        return self.user.username # Affiche le nom d'utilisateur
+        return self.user.username  # Affiche le nom d'utilisateur

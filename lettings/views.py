@@ -6,6 +6,8 @@ from .models import Letting
 logger = logging.getLogger(__name__)
 
 # Vue pour afficher la liste des locations
+
+
 def index(request):
     """
     vue listant toutes les locations disponibles.
@@ -25,6 +27,8 @@ def index(request):
     return render(request, 'lettings/index.html', context)
 
 # Vue pour afficher une location spécifique
+
+
 def letting(request, letting_id):
     """
     vue affichant le détail d'une location.
@@ -34,7 +38,7 @@ def letting(request, letting_id):
 
     Context:
         title: Titre de la location
-        address: Objet Address correspondant à l'ID fourni        
+        address: Objet Address correspondant à l'ID fourni
     Template:
         lettings/letting.html
     """
@@ -44,7 +48,7 @@ def letting(request, letting_id):
     letting = get_object_or_404(Letting, id=letting_id)
     # Création du contexte
     context = {
-        'title': letting.title, 
+        'title': letting.title,
         'address': letting.address
     }
     # Rendu de la vue
