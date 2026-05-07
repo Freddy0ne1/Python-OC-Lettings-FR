@@ -7,7 +7,7 @@ on:
       - develop
   pull_request:
     branches:
-      - maester
+      - master
 
 jobs:
 
@@ -46,7 +46,7 @@ jobs:
     name: Build et Push Docker Hub
     runs-on: ubuntu-latest
     needs: test
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
 
     steps:
       - name: Checkout du code
@@ -76,9 +76,11 @@ jobs:
     name: Deploiement sur Render
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
 
     steps:
       - name: Declenchement du deploiement Render
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
         run: |
-          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+          curl -X POST "$RENDER_DEPLOY_HOOK"
