@@ -31,5 +31,7 @@ USER appuser
 # Exposer le port
 EXPOSE $PORT
 
-# Appliquer les migrations et demarrer gunicorn
-CMD python manage.py migrate --noinput && gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:8000
+# Appliquer les migrations, creer le superutilisateur et demarrer gunicorn
+CMD python manage.py migrate --noinput && \
+    python manage.py shell -c "exec('''\nfrom django.contrib.auth.models import User\nif not User.objects.filter(username='admin').exists():\n    User.objects.create_superuser('admin', 'admin@example.com', 'Abc1234!')\n    print('Superutilisateur créé')\nelse:\n    print('Superutilisateur déjà existant')\n''')" && \
+    gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:$PORT
