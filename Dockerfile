@@ -1,6 +1,6 @@
 # Image de base Python 3.10 (stable, compatible avec Django 3.0)
 FROM python:3.10-slim
-
+#Bug
 # Variables d'environnement Python
 ENV PYTHONUNBUFFERED=1 \
 PYTHONDONTWRITEBYTECODE=1 \
