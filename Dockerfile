@@ -1,6 +1,6 @@
 # Image de base Python 3.10 (stable, compatible avec Django 3.0)
 FROM python:3.10-slim
-#Bug
+
 # Variables d'environnement Python
 ENV PYTHONUNBUFFERED=1 \
 PYTHONDONTWRITEBYTECODE=1 \
@@ -24,8 +24,9 @@ COPY . .
 # Collecter les fichiers statiques
 RUN python manage.py collectstatic --noinput
 
-# Creer un utilisateur non-root pour la securite
+# Creer un utilisateur non-root pour la securite et donner les droits sur le dossier /app
 RUN adduser --disabled-password --gecos '' appuser
+RUN chown -R appuser:appuser /app
 USER appuser
 
 # Exposer le port
