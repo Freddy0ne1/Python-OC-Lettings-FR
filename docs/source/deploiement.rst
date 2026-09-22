@@ -21,6 +21,12 @@ Secrets GitHub Actions :
 * ``RENDER_DEPLOY_HOOK`` : URL webhook Render
 * ``SENTRY_DSN`` : DSN Sentry
 
+Variables d'environnement sur Render :
+
+* ``SECRET_KEY`` : Cle secrete Django (obligatoire quand ``DEBUG`` vaut ``False``)
+* ``DJANGO_SUPERUSER_PASSWORD`` : mot de passe du compte admin ; sans elle, le compte est verrouille
+* ``DJANGO_SUPERUSER_USERNAME`` : nom du compte admin (``admin`` par defaut)
+
 Recuperer l'image Docker
 -------------------------
 

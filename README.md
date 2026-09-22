@@ -147,10 +147,13 @@ Ouvre ton navigateur et va sur : **http://localhost:8000**
 
 ### Accès admin
 
+Aucun mot de passe n'est publié dans le dépôt. En local, choisis celui du compte `admin` :
+
+```bash
+python manage.py changepassword admin
 ```
-Identifiant : admin
-Mot de passe : Abc1234!
-```
+
+En production, le compte admin suit les variables d'environnement (voir [Déploiement](#-déploiement)) : sans `DJANGO_SUPERUSER_PASSWORD`, il est verrouillé.
 
 ---
 
@@ -295,6 +298,8 @@ Le site est déployé automatiquement sur **Render** à chaque push sur `master`
 | `DEBUG` | `False` |
 | `ALLOWED_HOSTS` | `.onrender.com,localhost` |
 | `SENTRY_DSN` | (DSN du projet Sentry) |
+| `DJANGO_SUPERUSER_PASSWORD` | (mot de passe admin ; sans lui, le compte admin est verrouillé) |
+| `DJANGO_SUPERUSER_USERNAME` | `admin` (facultatif) |
 
 ---
 

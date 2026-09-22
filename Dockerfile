@@ -32,7 +32,8 @@ USER appuser
 # Exposer le port
 EXPOSE $PORT
 
-# Appliquer les migrations, creer le superutilisateur et demarrer gunicorn
+# Appliquer les migrations, aligner le compte admin sur l'environnement
+# (DJANGO_SUPERUSER_PASSWORD, sinon compte verrouille) et demarrer gunicorn
 CMD python manage.py migrate --noinput && \
-    python manage.py shell -c "exec('''\nfrom django.contrib.auth.models import User\nif not User.objects.filter(username='admin').exists():\n    User.objects.create_superuser('admin', 'admin@example.com', 'Abc1234!')\n    print('Superutilisateur créé')\nelse:\n    print('Superutilisateur déjà existant')\n''')" && \
+    python manage.py ensure_admin && \
     gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:$PORT
